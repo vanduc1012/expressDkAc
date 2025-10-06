@@ -127,6 +127,17 @@ jobs:
             docker-compose --version
           fi
 
+
+
+
+      - name: Allow runner to access docker.sock (hotfix)
+        run: |
+          sudo systemctl start docker
+          # Nới quyền socket cho job hiện tại (tác dụng tức thì)
+          sudo chmod 666 /var/run/docker.sock || true
+          # Debug: in ra thông tin user & socket
+          id
+          ls -l /var/run/docker.sock || true
       # STEP 4: Authenticate with Docker Hub
       # Logs into Docker Hub registry to push/pull images
       # Uses repository secrets for secure authentication
