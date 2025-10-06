@@ -20,7 +20,7 @@ services:
     
     # Use pre-built image from Docker Hub for faster deployment
     # This image contains your beautiful BookVault application
-    image: vanduc102/express-books-app:latest
+    image: vanduc102/express-books-app
     
     # Port mapping: Host:Container
     # Maps host port 80 (standard HTTP) to container port 80
