@@ -141,17 +141,12 @@ jobs:
 
       # STEP 5: Build and Push New Image
       # Creates new Docker image with latest code and pushes to registry
-      - name: Build and push Docker image
-        run: |
-          # Build Docker image using Dockerfile in repository root
-          # Tags image as 'latest' for production deployment
-          # Includes all your UI improvements, dependencies, etc.
-          sudo docker build -t vanduc102/express-books-app .
-
-          # Push built image to Docker Hub registry
-          # Makes image sudo available for deployment on any server
-          # Other developers/servers can pull this image
-          sudo docker push vanduc102/express-books-app
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: vanduc102/express-books-app:latest
 
       # STEP 6: Deploy Updated Application
       # Pulls latest image and restarts application with zero downtime
@@ -159,7 +154,7 @@ jobs:
         run: |
           # Pull the newly built image from Docker Hub
           # Ensures we're using the latest version with all updates
-          sudo docker pull vanduc102/express-books-app
+          sudo docker pull vanduc102/express-books-app:latest
           
           # Gracefully stop current production containers
           # Preserves database data and handles active connections
